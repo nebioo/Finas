@@ -1,9 +1,4 @@
-﻿using Application.Common.Models;
-using AutoMapper;
-using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AutoMapper;
 
 namespace Application.Common.Mappings
 {
@@ -11,9 +6,7 @@ namespace Application.Common.Mappings
     {
         public AutoMapperProfile()
         {
-            CreateMap<User, UserModel>();
-            CreateMap<RegisterModel, User>();
-            CreateMap<UpdateModel, User>();
+
         }
     }
 }
