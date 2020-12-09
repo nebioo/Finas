@@ -1,5 +1,6 @@
 using System;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -12,18 +13,19 @@ namespace Api
     public class Startup
     {
         private readonly IWebHostEnvironment _env;
-        private readonly IConfiguration _configuration;
+        public IConfiguration Configuration { get; }
         public Startup(
             IConfiguration configuration,
             IWebHostEnvironment env
             )
         {
             _env = env;
-            _configuration = configuration;
+            Configuration = configuration;
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddCors();
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -33,7 +35,9 @@ namespace Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
 
+            services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
         }
+
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{89221B72-A0D1-4EB3-8986-EE1C611B8C60}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{803F5173-050A-49C1-89BE-7B2880DCD57C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CCEC804D-DB43-4AB6-9A8C-91ACE9D91F92} = {803F5173-050A-49C1-89BE-7B2880DCD57C}
+		{FF36F3BE-7A58-4E8B-B732-17C1540A6BC7} = {803F5173-050A-49C1-89BE-7B2880DCD57C}
+		{0082C4F7-2B55-4882-8DCC-1C27A9469158} = {803F5173-050A-49C1-89BE-7B2880DCD57C}
+		{89221B72-A0D1-4EB3-8986-EE1C611B8C60} = {803F5173-050A-49C1-89BE-7B2880DCD57C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {82146F6D-FD6C-418E-8F9E-C56EBC7790EF}
