@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore;
 
 namespace Api
 {
@@ -7,14 +8,15 @@ namespace Api
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .ConfigureServices(services => services.AddAutofac()).ConfigureAppConfiguration((builderContext, config) =>
                 {
-                    webBuilder.UseStartup<Startup>();
-                });
+                    var environment = builderContext.HostingEnvironment;
+                })
+                .UseStartup<Startup>();
     }
 }
