@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 using MediatR;
 using Newtonsoft.Json;
 
-namespace Application.ExchangeRate.Query.Get
+namespace Application.ExchangeRate.Query.GetExchangeRate
 {
   public class RequestHandler : IRequestHandler<Request, Response>
   {
     public RequestHandler()
     {
-
     }
 
 
@@ -25,11 +24,20 @@ namespace Application.ExchangeRate.Query.Get
 
         using var httpClient = new HttpClient();
         using var response = await httpClient.GetAsync(GetUrl(today), cancellationToken);
-        
+
         var stringResponse = await response.Content.ReadAsStringAsync();
 
-        return JsonConvert.DeserializeObject<Response>(stringResponse);
+        var result = JsonConvert.DeserializeObject<Response>(stringResponse);
 
+        double one = 1.00;
+        result.Base = "TRY";
+        result.Rates.Usd = result.Rates.Try / result.Rates.Usd;
+        result.Rates.Eur = result.Rates.Try;
+        result.Rates.Gbp = result.Rates.Try / result.Rates.Gbp;
+        result.Rates.Try = one;
+
+
+        return result;
       }
       catch (Exception e)
       {
@@ -52,5 +60,7 @@ namespace Application.ExchangeRate.Query.Get
 
       return sb.ToString();
     }
+
+
   }
 }

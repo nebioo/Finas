@@ -1,9 +1,6 @@
-﻿using System;
-
-namespace Application.ExchangeRate.Query.Get
+namespace Domain.Entities
 {
-    [Serializable]
-    public class Response
+    public class ExchangeRates
     {
         public bool Success { get; set; }
         public int Timestamp { get; set; }
@@ -18,6 +15,7 @@ namespace Application.ExchangeRate.Query.Get
         public double Usd { get; set; }
         public double Gbp { get; set; }
         public double Try { get; set; }
+        public double Eur { get; set; }
     }
-
+    
 }
