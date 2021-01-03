@@ -1,9 +1,6 @@
-﻿using System;
-
-namespace Application.ExchangeRate.Query.Get
+namespace Api.Models
 {
-    [Serializable]
-    public class Response
+    public class ExchangeRates
     {
         public bool Success { get; set; }
         public int Timestamp { get; set; }
@@ -11,13 +8,6 @@ namespace Application.ExchangeRate.Query.Get
         public string Base { get; set; }
         public string Date { get; set; }
         public Rates Rates { get; set; }
-    }
-
-    public class Rates
-    {
-        public double Usd { get; set; }
-        public double Gbp { get; set; }
-        public double Try { get; set; }
     }
 
 }

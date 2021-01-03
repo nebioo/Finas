@@ -1,6 +1,5 @@
-using System;
-using AutoMapper;
-using MediatR;
+using Api.Interfaces;
+using Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -28,14 +27,14 @@ namespace Api
 
             services.AddCors();
             services.AddControllers();
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
 
-            services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddSingleton<IExchangeRateService,ExchangeRateService>();
+            services.AddSingleton<IImageService, ImageService>();
         }
 
 
