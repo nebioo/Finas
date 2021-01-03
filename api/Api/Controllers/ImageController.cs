@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using MediatR;
+using Api.Interfaces;
+using Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -10,30 +11,30 @@ namespace Api.Controllers
   [Route("[controller]")]
   public class ImageController : ApiController
   {
-    private readonly IMediator _mediator;
+    private readonly IImageService _imageService;
     private readonly ILogger<ImageController> _logger;
 
     public ImageController(
-        IMediator mediator,
+        IImageService imageService,
         ILogger<ImageController> logger
     )
     {
-      _mediator = mediator;
+      _imageService = imageService;
       _logger = logger;
     }
 
-    /// <summary>
-    /// Image Dosyasını oluşturur
-    /// </summary>
-    /// <returns></returns>
-    [HttpGet("CreateImage")]
-    public async Task<ActionResult> CreateImage()
-    {
-        var response = await _mediator.Send(new Application.Image.Command.CreateImage.Command());
-        if (response == null)
-            throw new ArgumentNullException(nameof(response));
-        
-        return Ok(response);
+        /// <summary>
+        /// Image Dosyasını oluşturur
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("CreateImage")]
+        public ActionResult CreateImage([FromQuery] ExchangeRateRequest request)
+        {
+            var response = _imageService.CreateImage(request);
+            if (response == false)
+                throw new ArgumentNullException(nameof(response));
+
+            return Ok(response);
+        }
     }
-  }
 }
