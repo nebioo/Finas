@@ -19,7 +19,7 @@ namespace Api.Services
                 var today = DateTime.Now;
 
                 var httpClient = new HttpClient();
-                var response = await httpClient.GetAsync(GetUrl(today));
+                var response = await httpClient.GetAsync(GetUrl(today)).ConfigureAwait(false);
 
                 response.EnsureSuccessStatusCode();
                 var stringResponse = await response.Content.ReadAsStringAsync();

@@ -6,6 +6,6 @@ namespace Api.Interfaces
 {
     public interface IImageService
     {
-        public bool CreateImage(ExchangeRateRequest request);
+        public Task<bool> CreateImage(ExchangeRateResponse exchangeRateResponse);
     }
 }

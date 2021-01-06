@@ -12,14 +12,17 @@ namespace Api.Controllers
   public class ImageController : ApiController
   {
     private readonly IImageService _imageService;
+    private readonly IExchangeRateService _exchangeRateService;
     private readonly ILogger<ImageController> _logger;
 
     public ImageController(
         IImageService imageService,
+        IExchangeRateService exchangeRateService,
         ILogger<ImageController> logger
     )
     {
       _imageService = imageService;
+      _exchangeRateService = exchangeRateService;
       _logger = logger;
     }
 
@@ -28,13 +31,13 @@ namespace Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("CreateImage")]
-        public ActionResult CreateImage([FromQuery] ExchangeRateRequest request)
+        public async Task CreateImage()
         {
-            var response = _imageService.CreateImage(request);
+            var exchangeRateData =await _exchangeRateService.GetExchangeRates();
+            var response = await _imageService.CreateImage(exchangeRateData);
             if (response == false)
                 throw new ArgumentNullException(nameof(response));
-
-            return Ok(response);
+            
         }
     }
 }
