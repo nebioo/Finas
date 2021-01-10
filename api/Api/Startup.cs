@@ -1,4 +1,6 @@
 using Api.Interfaces;
+using Api.Jobs;
+using Api.Models;
 using Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Quartz;
+using Quartz.Impl;
+using Quartz.Spi;
 
 namespace Api
 {
@@ -35,6 +40,17 @@ namespace Api
 
             services.AddSingleton<IExchangeRateService,ExchangeRateService>();
             services.AddSingleton<IImageService, ImageService>();
+
+            services.AddHostedService<QuartzHostedService>();
+            services.AddSingleton<IJobFactory, SingletonJobFactory>();
+            services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
+
+            services.AddSingleton<PublishJob>();
+            services.AddSingleton(new JobSchedule(
+                jobType: typeof(PublishJob),
+                cronExpression: "0 0 18 ? * MON-FRI *"
+            ));
+            //  0 0 18 ? * MON-FRI *  At 18:00 on every day-of-week from Monday through Friday.
         }
 
 
